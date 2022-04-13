@@ -11,7 +11,6 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json ")
 public class PostsController {
 
-
     @GetMapping
     private List<Post> getAll() {
         ArrayList<Post> posts = new ArrayList<>();
@@ -24,6 +23,22 @@ public class PostsController {
     @GetMapping("{postId}")
     public Post getById(@PathVariable Long postId) {
         Post post = new Post(postId, "Post Id: " + postId, "Here is the blog post you requested.");
-return post;
+        return post;
+    }
+
+    @PostMapping("{addPost}")
+    private void createPost(@RequestBody Post addPost) {
+        System.out.println(addPost);
+
+    }
+
+    @PutMapping("{editPost}")
+    private void updatePost(@PathVariable Long id, @RequestBody Post editPost){
+
+    }
+
+    @DeleteMapping("{postId}")
+    private void deletePost(@PathVariable Long postId) {
+
     }
 }
