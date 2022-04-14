@@ -20,7 +20,7 @@ export default function PostIndex(props) {
                         <label for="add-post-content" class="form-label">Content</label>
                         <textarea class="form-control" id="add-post-content" rows="3"></textarea>
                     </div>
-                    <button type="button" class="btn btn-outline-primary">Post</button>
+                    <button type="button" class="post-btn btn-outline-primary">Post</button>
                 </div>
             </main>
         </div>
@@ -33,9 +33,20 @@ export function PostEvent() {
 // TODO: create post event listeners function
     createPostEventListener();
 // TODO: create edit event listener function
+    createEditEventListener()
 // TODO: create delete event listener function
+    createDeleteEventLister();
 }
 
 function createPostEventListener() {
+$('#post-btn').click(function (){
+    const title = $("#add-post-title").val();
+    const content = $("#add-post-content").val();
+    const post = {
+        title,
+        content
+    }
+    console.log(post);
+});
 
 }
