@@ -26,6 +26,15 @@ export default function PostIndex(props) {
     `;
 }
 
+
+
 export function PostEvent() {
+// TODO: create post event listeners function
+    createPostEventListener();
+// TODO: create edit event listener function
+// TODO: create delete event listener function
+}
+
+function createPostEventListener() {
 
 }
