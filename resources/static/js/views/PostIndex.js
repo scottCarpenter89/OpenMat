@@ -20,6 +20,7 @@ export default function PostIndex(props) {
                         <label for="add-post-content" class="form-label">Content</label>
                         <textarea class="form-control" id="add-post-content" rows="3"></textarea>
                     </div>
+                    <button type="button" class="btn btn-outline-primary">Post</button>
                 </div>
             </main>
         </div>
