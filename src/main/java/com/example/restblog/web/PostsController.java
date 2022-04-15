@@ -20,25 +20,25 @@ public class PostsController {
         return posts;
     }
 
-    @GetMapping("{postId}")
-    public Post getById(@PathVariable Long postId) {
-        Post post = new Post(postId, "Post Id: " + postId, "Here is the blog post you requested.");
+    @GetMapping("{id}")
+    public Post getById(@PathVariable Long id) {
+        Post post = new Post(id , "Post Id: " + id, "Here is the blog post you requested.");
         return post;
     }
 
-    @PostMapping("{addPost}")
-    private void createPost(@RequestBody Post addPost) {
-        System.out.println(addPost);
+    @PostMapping
+    private void createPost(@RequestBody Post post) {
+        System.out.println(post.getId());
 
     }
 
-    @PutMapping("{editPost}")
+    @PutMapping("{id}")
     private void updatePost(@PathVariable Long id, @RequestBody Post editPost){
-
+        System.out.printf("Backend wants us to update post id %d with %s", id, editPost);
     }
 
-    @DeleteMapping("{postId}")
-    private void deletePost(@PathVariable Long postId) {
-
+    @DeleteMapping("{id}")
+    private void deletePost(@PathVariable Long id) {
+        System.out.printf("Here is the post id to be deleted %d", id);
     }
 }
