@@ -22,19 +22,19 @@ public class UsersController {
 
     @GetMapping("{id}")
     public User getById(@PathVariable Long id) {
-        User user = new User(1, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER);
+        User user = new User(id, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER);
         System.out.println(user);
         return user;
     }
 
     @PostMapping
     private void createUser(@RequestBody User user) {
-        System.out.println(user.getId());
+        System.out.println(user);
     }
 
     @PutMapping("{id}")
     private void updateUser(@PathVariable Long id, @RequestBody User updateUser) {
-        System.out.printf("Update user %s by their id: %d", updateUser, id);
+        System.out.printf("Update user %s by their id: %d", updateUser.getUsername(), id);
     }
 
     @DeleteMapping("{id}")
