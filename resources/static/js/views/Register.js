@@ -25,8 +25,8 @@ export default function Register(props) {
 `;
 }
 
-export function RegisterEvent(){
-    $("#register-btn").click(function(){
+export function RegisterEvent() {
+    $("#register-btn").click(function () {
 
         let newUser = {
             username: $("#username").val(),
@@ -45,8 +45,10 @@ export function RegisterEvent(){
         fetch("http://localhost:8080/api/users", request)
             .then(response => {
                 console.log(response.status);
-                CreateView("/");
-            })
-
-    })
+            }).catch(error => {
+            console.log(error.status)
+        }).finally(() => {
+            CreateView("/");
+        });
+    });
 }
