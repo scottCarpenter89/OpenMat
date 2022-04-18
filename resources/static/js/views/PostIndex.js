@@ -11,8 +11,11 @@ export default function PostIndex(props) {
             <main>
                 <div id="posts-container">
                     ${props.posts.map(post => `
-                        <h3>${post.title}</h3>
-                        <p>${post.content}</p>`).join('')}
+                        <h3 id="title-${post.id}">${post.title}</h3>
+                        <p id="content-${post.id}">${post.content}</p>
+                        <button type="button" class="btn edit-btn btn-primary mb-3" data-id="${post.id}">Edit</button>
+                        <button type="button" class="btn delete-btn btn-primary mb-3" data-id="${post.id}">Delete</button>`)
+        .join('')}
                 </div>
                 <div id="add-post-container">
                     <div class="mb-3">
@@ -24,8 +27,7 @@ export default function PostIndex(props) {
                         <textarea class="form-control" id="add-post-content" rows="3" placeholder="Add content"></textarea>
                     </div>
                     <button type="button" id="post-btn" class="btn btn-primary mb-3">Post</button>
-                    <button type="button" id="edit-btn" class="btn btn-primary mb-3" dataid="1">Edit</button>
-                    <button type="button" id="delete-btn "class="btn btn-primary mb-3" dataid="2">Delete</button>
+                 
                 </div>
             </main>
     `;
@@ -34,15 +36,14 @@ export default function PostIndex(props) {
 
 export function PostsEvent() {
 // TODO: create post event listeners function
-    createPostEventListener();
+    postEventListener();
 // // TODO: create edit event listener function
-//     createEditEventListener()
+    editEventListener()
 // // TODO: create delete event listener function
-//     createDeleteEventLister();
+    deleteEventLister();
 }
 
-function createPostEventListener() {
-    console.log("adding a post listener");
+function postEventListener() {
     $('#post-btn').click(function () {
         const title = $("#add-post-title").val();
         const content = $("#add-post-content").val();
@@ -50,8 +51,6 @@ function createPostEventListener() {
             title,
             content
         }
-        console.log('ready to add new post');
-        console.log(newPost);
 
         const request = {
             method: 'POST',
@@ -72,12 +71,39 @@ function createPostEventListener() {
     });
 }
 
-function createEditEventListener() {
-    $('#edit-btn').click(function () {
+function editEventListener() {
+    $('.edit-btn').click(function () {
+        const id = $(this).data("id");
+        const title = $("#title-" + id).text();
+        const content = $("#content-" + id).text();
 
+        const editPost = {
+            title,
+            content
+        };
+
+        const request = {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(editPost),
+        };
+
+        fetch(`${POST_URI}/${id}`, request)
+            .then(res => {
+                console.log(res.status)
+            }).catch(error => {
+            console.log(error)
+        }).finally(() => {
+            createView("/posts");
+        });
     });
 }
 
-function createDeleteEventLister() {
+function deleteEventLister() {
+$('.delete-btn').click(function () {
+    const id = $(this).data("id");
 
+})
 }
