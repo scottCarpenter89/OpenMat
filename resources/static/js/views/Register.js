@@ -1,3 +1,5 @@
+
+const USER_URI = "http://localhost:8080/api/users";
 import CreateView from "../createView.js"
 
 export default function Register(props) {
@@ -42,7 +44,7 @@ export function RegisterEvent() {
             body: JSON.stringify(newUser)
         }
 
-        fetch("http://localhost:8080/api/users", request)
+        fetch(USER_URI, request)
             .then(response => {
                 console.log(response.status);
             }).catch(error => {
