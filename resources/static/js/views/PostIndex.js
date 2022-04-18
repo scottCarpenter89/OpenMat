@@ -105,5 +105,20 @@ function deleteEventLister() {
 $('.delete-btn').click(function () {
     const id = $(this).data("id");
 
-})
+    const request = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    fetch(`${POST_URI}/${id}`, request)
+        .then(res => {
+            console.log(res.status);
+        }).catch(error => {
+        console.log(error);
+    }).finally(() => {
+        createView("/posts");
+    });
+});
 }
