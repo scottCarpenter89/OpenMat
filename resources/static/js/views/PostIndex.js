@@ -8,15 +8,17 @@ export default function PostIndex(props) {
         <header>
             <h1>Posts Page</h1>
         </header>
+        
             <main>
                 <div id="posts-container">
                     ${props.posts.map(post => `
                         <h3 id="title-${post.id}">${post.title}</h3>
                         <p id="content-${post.id}">${post.content}</p>
                         <button type="button" class="btn edit-btn btn-primary mb-3" data-id="${post.id}">Edit</button>
-                        <button type="button" class="btn delete-btn btn-primary mb-3" data-id="${post.id}">Delete</button>`)
-        .join('')}
+                        <button type="button" class="btn delete-btn btn-primary mb-3" data-id="${post.id}">Delete</button>
+                    `).join('')} 
                 </div>
+                
                 <div id="add-post-container">
                     <div class="mb-3">
                         <label for="add-post-title" class="form-label">Title</label>
@@ -27,7 +29,6 @@ export default function PostIndex(props) {
                         <textarea class="form-control" id="add-post-content" rows="3" placeholder="Add content"></textarea>
                     </div>
                     <button type="button" id="post-btn" class="btn btn-primary mb-3">Post</button>
-                 
                 </div>
             </main>
     `;
@@ -38,7 +39,7 @@ export function PostsEvent() {
 // TODO: create post event listeners function
     postEventListener();
 // // TODO: create edit event listener function
-    editEventListener()
+    editEventListener();
 // // TODO: create delete event listener function
     deleteEventLister();
 }
@@ -66,7 +67,7 @@ function postEventListener() {
             }).catch(error => {
             console.log(error);
         }).finally(() => {
-            createView("/posts")
+            createView("/posts");
         });
     });
 }
@@ -92,9 +93,9 @@ function editEventListener() {
 
         fetch(`${POST_URI}/${id}`, request)
             .then(res => {
-                console.log(res.status)
+                console.log(res.status);
             }).catch(error => {
-            console.log(error)
+            console.log(error);
         }).finally(() => {
             createView("/posts");
         });
@@ -102,23 +103,23 @@ function editEventListener() {
 }
 
 function deleteEventLister() {
-$('.delete-btn').click(function () {
-    const id = $(this).data("id");
+    $('.delete-btn').click(function () {
+        const id = $(this).data("id");
 
-    const request = {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
+        const request = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
 
-    fetch(`${POST_URI}/${id}`, request)
-        .then(res => {
-            console.log(res.status);
-        }).catch(error => {
-        console.log(error);
-    }).finally(() => {
-        createView("/posts");
+        fetch(`${POST_URI}/${id}`, request)
+            .then(res => {
+                console.log(res.status);
+            }).catch(error => {
+            console.log(error);
+        }).finally(() => {
+            createView("/posts");
+        });
     });
-});
 }
