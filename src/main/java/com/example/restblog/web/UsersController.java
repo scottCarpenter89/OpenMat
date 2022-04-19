@@ -3,6 +3,8 @@ package com.example.restblog.web;
 import com.example.restblog.data.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,10 @@ public class UsersController {
 
     @GetMapping
     private List<User> getAll() {
-        ArrayList<User> allUsers = new ArrayList<>();
-        return allUsers;
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User(1, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER));
+        users.add(new User(2, "scottieNehPah", "scottieEVIL@gmail.com", "IHaTEU", LocalDate.now(), USER));
+        return users;
     }
 
     @GetMapping("{id}")
@@ -45,15 +49,21 @@ public class UsersController {
 
     @GetMapping("{username}")
     public User getByUsername(@RequestParam String username) {
-
+        User foundUser = new User();
         System.out.println(username);
-        return null;
+        return foundUser;
     }
 
     @GetMapping("{email}")
     public User getByEmail(@RequestParam String email) {
-        System.out.println();
-        return null;
+        User foundUser = new User();
+        System.out.println(email);
+        return foundUser;
+    }
+
+    @PutMapping("{id}/updatePassword")
+    private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 8) @RequestParam String newPassword) {
+        System.out.printf("Update password of user with %d, with the old password of '%s', and the new password of '%s'?", id, oldPassword, newPassword);
     }
 }
 

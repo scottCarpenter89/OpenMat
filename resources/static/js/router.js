@@ -5,10 +5,11 @@ import Error404 from "./views/Error404.js";
 import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
 import LoginEvent from "./auth.js";
-import Register from "./views/Register.js"
+import Register from "./views/Register.js";
+import Account from "./views/Account.js";
 import {RegisterEvent} from "./views/Register.js";
 import {PostsEvent} from "./views/PostIndex.js";
-
+import {AccountEvent} from "./views/Account.js";
 /**
  * Returns the route object for a specific route based on the given URI
  * @param URI
@@ -62,6 +63,13 @@ export default function router(URI) {
             state: {},
             uri: location.pathname,
             title: 'Loading...',
+        },
+        '/account': {
+            returnView: Account,
+            state: {},
+            uri: '/account',
+            title: 'Account',
+            viewEvent: AccountEvent
         }
     };
 
