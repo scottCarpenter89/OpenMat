@@ -37,6 +37,13 @@ export default function Account(props) {
                     </div>
                 </div>
             </form>
+            <h2>My Posts</h2>
+            <div id="my-post-container">
+                ${props.account.posts.map(post => `
+                <h3 id="title-${post.id}">${post.title}</h3>
+                <p id="content-${post.id}">${post.content}</p>
+                `).join('')}
+            </div>
         </div>
         </body>
         </html>

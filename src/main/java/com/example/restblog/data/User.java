@@ -3,6 +3,7 @@ package com.example.restblog.data;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +17,7 @@ public class User {
     private String password;
     private LocalDate createdAt;
     private Role role;
+    private Collection<Post> posts;
 
     public enum Role {USER, ADMIN}
 
