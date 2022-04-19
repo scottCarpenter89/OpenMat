@@ -13,7 +13,7 @@ import static com.example.restblog.data.User.Role.USER;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/users", headers = "Accept=application/json")
+@RequestMapping(value = "/api/account", headers = "Accept=application/json")
 public class UsersController {
 
     @GetMapping
@@ -54,7 +54,7 @@ public class UsersController {
         return foundUser;
     }
 
-    @GetMapping("{email}")
+    @GetMapping("{id}/email")
     public User getByEmail(@RequestParam String email) {
         User foundUser = new User();
         System.out.println(email);

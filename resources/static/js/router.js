@@ -66,7 +66,9 @@ export default function router(URI) {
         },
         '/account': {
             returnView: Account,
-            state: {},
+            state: {
+                account: "/api/account/email?email=carpenter.scott@rocketmail.com"
+            },
             uri: '/account',
             title: 'Account',
             viewEvent: AccountEvent

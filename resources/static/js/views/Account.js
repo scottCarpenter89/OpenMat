@@ -1,6 +1,6 @@
 "use strict";
 
-const PASSWORD_URI = "http://localhost:8080/api/account";
+
 import CreateView from "../createView.js";
 
 export default function Account(props) {
@@ -17,9 +17,9 @@ export default function Account(props) {
             <h3>Change Password</h3>
             <form id="change-password">
                 <div class="mb-3">
-                    <label for="input-user-identifier" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="input-user-identifier"
-                           placeholder="Input your username or email">
+                    <label for="input-email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="input-email" value="${props.account.email}"
+                           placeholder="Input your email">
                     <div class="mb-3">
                         <label for="input-old-password" class="form-label">Old Password</label>
                         <input type="password" class="form-control" id="input-old-password"
@@ -32,7 +32,7 @@ export default function Account(props) {
                                 Your password must be 8-20 characters long, contain letters and numbers, and must not
                                 contain spaces, special characters, or emoji.
                             </div>
-                            <button type="submit" id="submit-new-password" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="submit-new-password" class="btn btn-primary" data-id="${props.account.id}">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -49,9 +49,8 @@ export function AccountEvent() {
 
 function changePasswordEventListener() {
     $("#submit-new-password").click(function () {
-        // TODO: will locate the record on the backend by username
-        const userIdentifier = $('#input-user-identifier').val();
-        // TODO: use old password to validate with the backend later
+        const id = $(this).data("id");
+        const email = $('#input-email').val();
         const oldPassword = $('#input-old-password').val();
         const newPassword = $('#input-new-password').val();
 
@@ -59,11 +58,10 @@ function changePasswordEventListener() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newPassword),
+            }
         };
 
-        fetch(PASSWORD_URI, request)
+        fetch(`http://localhost:8080/api/account/${id}/email?email=${email}&password?oldPassword=${oldPassword}&password?newPassword=${newPassword}`, request)
             .then(res => {
                 console.log(res.status);
             }).catch(error => {
