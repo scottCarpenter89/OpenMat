@@ -43,7 +43,7 @@ public class PostsController {
     private void createPost(@RequestBody Post post) {
         Post postToAdd = new Post(post.getTitle(), post.getContent());
         postsRepository.save(postToAdd);
-        System.out.println("A post was created.");
+        System.out.printf("A post with the id %d was created", postToAdd.getId());
     }
 
     @PutMapping("{id}")
@@ -52,13 +52,13 @@ public class PostsController {
         postToUpdate.setTitle(editPost.getTitle());
         postToUpdate.setContent(editPost.getContent());
         postsRepository.save(postToUpdate);
-        System.out.printf("Post with the id, %d was updated.");
+        System.out.printf("Post with the id, %d was updated.", id);
     }
 
     @DeleteMapping("{id}")
     private void deletePost(@PathVariable Long id) {
         Post postToDelete = postsRepository.getById(id);
         postsRepository.delete(postToDelete);
-        System.out.printf("The post with the id %d was deleted.");
+        System.out.printf("The post with the id %d was deleted.", id);
     }
 }

@@ -1,7 +1,7 @@
 import createView from "../createView.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
-
+// <p id="author-${post.id}">${post.user.username} </p>
 export default function PostIndex(props) {
     // language=html;
     return `
@@ -13,7 +13,7 @@ export default function PostIndex(props) {
                 <div id="posts-container">
                     ${props.posts.map(post => `
                         <h3 id="title-${post.id}">${post.title}</h3>
-                        <p id="author-${post.id}">${post.author.username} </p>
+                      
                         <p id="content-${post.id}">${post.content}</p>
                         <button type="button" class="btn edit-btn btn-primary mb-3" data-id="${post.id}">Edit</button>
                         <button type="button" class="btn delete-btn btn-primary mb-3" data-id="${post.id}">Delete</button>
@@ -37,11 +37,8 @@ export default function PostIndex(props) {
 
 
 export function PostsEvent() {
-// TODO: create post event listeners function
     postEventListener();
-// // TODO: create edit event listener function
     editEventListener();
-// // TODO: create delete event listener function
     deleteEventLister();
 }
 
@@ -72,7 +69,9 @@ function postEventListener() {
         });
     });
 }
-
+/* TODO: Clicking the edit button works and fulfills a 200 status, but I cannot change the content
+        Maybe display a modal on click that prefills the data into the fields.
+ */
 function editEventListener() {
     $('.edit-btn').click(function () {
         const id = $(this).data("id");
