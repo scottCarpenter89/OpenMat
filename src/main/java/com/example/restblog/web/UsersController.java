@@ -21,6 +21,7 @@ public class UsersController {
 
     // dependency for injection
     private UsersRepository usersRepository;
+
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
@@ -68,26 +69,32 @@ public class UsersController {
 
     @PutMapping("{id}")
     private void updateUser(@PathVariable Long id, @RequestBody User updateUser) {
-       User userToUpdate = usersRepository.getById(id);
-       userToUpdate.setUsername(updateUser.getUsername());
-       userToUpdate.setEmail(updateUser.getEmail());
-       userToUpdate.setPassword(updateUser.getPassword());
-       userToUpdate.setCreatedAt(updateUser.getCreatedAt());
-       userToUpdate.setRole(updateUser.getRole());
-       usersRepository.save(userToUpdate);
-        System.out.printf("The user with the id, %d was updated.", userToUpdate.getId());
+        User userToUpdate = usersRepository.getById(id);
+        userToUpdate.setUsername(updateUser.getUsername());
+        userToUpdate.setEmail(updateUser.getEmail());
+        userToUpdate.setPassword(updateUser.getPassword());
+        userToUpdate.setCreatedAt(updateUser.getCreatedAt());
+        userToUpdate.setRole(updateUser.getRole());
+        usersRepository.save(userToUpdate);
+        System.out.printf("The user with the id, %d was updated.", id);
     }
 
     @PutMapping("{id}/updatePassword")
-//    TODO: refactor method to use userRespository
     private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 8) @RequestParam String newPassword) {
-        System.out.printf("Update password of user with %d, with the old password of '%s', and the new password of '%s'?", id, oldPassword, newPassword);
+
+        User updatePassword = usersRepository.getById(id);
+        // TODO: create a method that gets the old password and validates it that it matches what is in the database
+        String oldPasswordValidator = updatePassword.getPassword();
+        // TODO: create a method that checks the user's input against parameters needed to create a strong password
+        updatePassword.setPassword(newPassword);
+        System.out.printf("The password for the user with the id, %d has been changed.", id);
     }
 
     @DeleteMapping("{id}")
-    //    TODO: refactor method to use userRespository
     private void deleteUserById(@PathVariable Long id) {
-        System.out.printf("User to be deleted %d", id);
+        User userToDelete = usersRepository.getById(id);
+        usersRepository.delete(userToDelete);
+        System.out.printf("The user with the id, %d has been deleted.", id);
     }
 }
 
