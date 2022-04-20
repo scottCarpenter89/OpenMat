@@ -35,8 +35,7 @@ public class PostsController {
 
     @GetMapping("{id}")
     public Post getById(@PathVariable Long id) {
-        Post post = postsRepository.getById(id);
-        return post;
+        return postsRepository.getById(id);
     }
 
     @PostMapping

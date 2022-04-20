@@ -2,6 +2,7 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.Post;
 import com.example.restblog.data.User;
+import com.example.restblog.data.UsersRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +18,13 @@ import static com.example.restblog.data.User.Role.USER;
 @RestController
 @RequestMapping(value = "/api/account", headers = "Accept=application/json")
 public class UsersController {
-//    private static final Post post1 = new Post(1L, "Post 1", "Here's the first post!", null);
+
+    // dependency for injection
+    private UsersRepository usersRepository;
+    public UsersController(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+    //    private static final Post post1 = new Post(1L, "Post 1", "Here's the first post!", null);
 //    private static final Post post2 = new Post(2L, "Post 2", "Here's the second post!", null);
 //    private static final Post post3 = new Post(3L, "Post 3", "Here's the third post!", null);
 
@@ -26,46 +33,59 @@ public class UsersController {
         ArrayList<User> users = new ArrayList<>();
 //        users.add(new User(1, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2)));
 //        users.add(new User(2, "scottieNehPah", "scottieEVIL@gmail.com", "IHaTEU", LocalDate.now(), USER, Arrays.asList(post3)));
-        return users;
+        return usersRepository.findAll();
     }
 
-//    @GetMapping("{id}")
-//    public User getById(@PathVariable Long id) {
-////        User user = new User(id, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2));
-//        System.out.println(user);
-//        return user;
-//    }
+    @GetMapping("{id}")
+    public User getById(@PathVariable Long id) {
+//        User user = new User(id, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2));
+        System.out.printf("Found the user id requested: %d", id);
+        return usersRepository.getById(id);
+    }
 
     @GetMapping("username")
     public User getByUsername(@RequestParam String username) {
         User foundUser = new User();
-        System.out.println(username);
-        return foundUser;
+        foundUser.setUsername(username);
+        System.out.printf("Found the username requested: %s", username);
+        return usersRepository.save(foundUser);
     }
 
     @GetMapping("email")
     public User getByEmail(@RequestParam String email) {
         User foundUser = new User();
-        System.out.println(email);
+        foundUser.setEmail(email);
+        System.out.printf("Found the email requested: %s", email);
         return foundUser;
     }
 
     @PostMapping
     private void createUser(@RequestBody User user) {
-        System.out.println(user);
+        User newUser = new User(user.getUsername(), user.getEmail(), user.getPassword(), user.getCreatedAt(), user.getRole());
+        usersRepository.save(newUser);
+        System.out.printf("A new user was created with the id of: %d", newUser.getId());
     }
 
     @PutMapping("{id}")
     private void updateUser(@PathVariable Long id, @RequestBody User updateUser) {
-        System.out.printf("Update user %s by their id: %d", updateUser.getUsername(), id);
+       User userToUpdate = usersRepository.getById(id);
+       userToUpdate.setUsername(updateUser.getUsername());
+       userToUpdate.setEmail(updateUser.getEmail());
+       userToUpdate.setPassword(updateUser.getPassword());
+       userToUpdate.setCreatedAt(updateUser.getCreatedAt());
+       userToUpdate.setRole(updateUser.getRole());
+       usersRepository.save(userToUpdate);
+        System.out.printf("The user with the id, %d was updated.", userToUpdate.getId());
     }
 
     @PutMapping("{id}/updatePassword")
+//    TODO: refactor method to use userRespository
     private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 8) @RequestParam String newPassword) {
         System.out.printf("Update password of user with %d, with the old password of '%s', and the new password of '%s'?", id, oldPassword, newPassword);
     }
 
     @DeleteMapping("{id}")
+    //    TODO: refactor method to use userRespository
     private void deleteUserById(@PathVariable Long id) {
         System.out.printf("User to be deleted %d", id);
     }
