@@ -34,12 +34,13 @@ public class UsersController {
         return usersRepository.findById(id);
     }
 
-    @GetMapping("username")
+    @GetMapping("searchByUsername")
     public User getByUsername(@RequestParam String username) {
-        User foundUser = new User();
-        foundUser.setUsername(username);
-        System.out.printf("Found the username requested: %s", username);
-        return usersRepository.save(foundUser);
+//        User foundUser = new User();
+//        foundUser.setUsername(username);
+//        System.out.printf("Found the username requested: %s", username);
+//        return usersRepository.save(foundUser);
+        return usersRepository.findByUsername(username);
     }
 
     @GetMapping("searchByEmail")
