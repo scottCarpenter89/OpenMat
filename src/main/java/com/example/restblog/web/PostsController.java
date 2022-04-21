@@ -1,9 +1,8 @@
 package com.example.restblog.web;
 
-import com.example.restblog.data.Post;
-import com.example.restblog.data.PostsRepository;
-import com.example.restblog.data.UsersRepository;
+import com.example.restblog.data.*;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +15,12 @@ public class PostsController {
     // for dependency injection
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
+    private final CategoriesRepository categoriesRepository;
 
-    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository) {
+    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository, CategoriesRepository categoriesRepository) {
         this.postsRepository = postsRepository;
         this.usersRepository = usersRepository;
+        this.categoriesRepository = categoriesRepository;
     }
 
     @GetMapping
@@ -33,10 +34,14 @@ public class PostsController {
     }
 
     @PostMapping
-    private void createPost(@RequestBody Post post) {
-        post.setAuthor(usersRepository.getById(1L));
-        postsRepository.save(post);
-        System.out.printf("A post with the id %d was created.", post.getId());
+    private void createPost(@RequestBody Post newPost) {
+        newPost.setAuthor(usersRepository.getById(1L));
+        List<Category> categories = new ArrayList<>();
+        categories.add(categoriesRepository.findCategoriesByName("bjj"));
+        categories.add(categoriesRepository.findCategoriesByName("golf"));
+        newPost.setCategories(categories);
+        postsRepository.save(newPost);
+        System.out.printf("A post with the id %d was created.", newPost.getId());
         System.out.println();
     }
 

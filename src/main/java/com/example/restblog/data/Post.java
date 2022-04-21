@@ -1,7 +1,7 @@
 package com.example.restblog.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jdk.jfr.Category;
+
 import lombok.*;
 
 import javax.persistence.*;

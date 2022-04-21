@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,20 +16,14 @@ import java.util.Optional;
 public class UsersController {
 
     // dependency for injection
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
-    //    private static final Post post1 = new Post(1L, "Post 1", "Here's the first post!", null);
-//    private static final Post post2 = new Post(2L, "Post 2", "Here's the second post!", null);
-//    private static final Post post3 = new Post(3L, "Post 3", "Here's the third post!", null);
 
     @GetMapping
     private List<User> getAll() {
-        ArrayList<User> users = new ArrayList<>();
-//        users.add(new User(1, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2)));
-//        users.add(new User(2, "scottieNehPah", "scottieEVIL@gmail.com", "IHaTEU", LocalDate.now(), USER, Arrays.asList(post3)));
         return usersRepository.findAll();
     }
 
@@ -58,7 +52,9 @@ public class UsersController {
 
     @PostMapping
     private void createUser(@RequestBody User user) {
-        User newUser = new User(user.getUsername(), user.getEmail(), user.getPassword(), user.getCreatedAt(), user.getRole());
+        User newUser = user;
+        user.setCreatedAt(LocalDate.now());
+        user.getRole();
         usersRepository.save(newUser);
         System.out.printf("A new user was created with the id of: %d", newUser.getId());
     }
