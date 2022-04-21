@@ -2,8 +2,10 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.Post;
 import com.example.restblog.data.PostsRepository;
+import com.example.restblog.data.UsersRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -13,8 +15,11 @@ public class PostsController {
 
     // for dependency injection
     private final PostsRepository postsRepository;
-    public PostsController(PostsRepository postsRepository) {
+    private final UsersRepository usersRepository;
+
+    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository) {
         this.postsRepository = postsRepository;
+        this.usersRepository = usersRepository;
     }
 
     @GetMapping
@@ -23,15 +28,15 @@ public class PostsController {
     }
 
     @GetMapping("{id}")
-    public Post getById(@PathVariable Long id) {
-        return postsRepository.getById(id);
+    public Optional<Post> getById(@PathVariable Long id) {
+        return postsRepository.findById(id);
     }
 
     @PostMapping
     private void createPost(@RequestBody Post post) {
-        Post postToAdd = new Post(post.getTitle(), post.getContent());
-        postsRepository.save(postToAdd);
-        System.out.printf("A post with the id %d was created.", postToAdd.getId());
+        post.setAuthor(usersRepository.getById(1L));
+        postsRepository.save(post);
+        System.out.printf("A post with the id %d was created.", post.getId());
         System.out.println();
     }
 

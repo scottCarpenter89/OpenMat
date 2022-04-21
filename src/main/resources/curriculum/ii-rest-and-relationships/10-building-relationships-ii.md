@@ -35,7 +35,7 @@ Its job is to provide the names of which categories *exist*.
 
 
 2. Let's give it only two private fields:
-    - long id
+    - Long id
     - String name
 
 
@@ -81,11 +81,13 @@ Now that we have this relationship established, let's expose endpoints to provid
     - Some `Post` objects *could* have more than one `Category` nested within them. How could we use this in our client-side to provide a more unique experience? 
 
 
-4. It will accept a parameter: `@RequestParameter String categoryName`
+4. It will accept a parameter: `@RequestParam String categoryName`
 
     
-5. Much how we have done this previously, let's just create hard-coded objects to return.
+5. As we have done previously, let's just create hard-coded objects to return.
     - You'll want to create a `Category` object and nest a few `Post` objects within the `posts` field.
+    - Be sure to set each post's categories to null (i.e., `post.setCategories(null)`). Otherwise, you may end up with **INFINITE RECURSION** in your response
+    - TEST with Swagger or Postman!!!
     
 ---
 
@@ -93,7 +95,7 @@ Now that we have this relationship established, let's expose endpoints to provid
 
 ## FEA-9-D: Show categories of blog posts on the client-side
 
-## FEA-9-D: Enable assignment of categories on the client-side
+## FEA-10-D: Enable assignment of categories on the client-side
 
 ## *¡Feel free to style up your frontend!*
 

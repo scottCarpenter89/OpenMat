@@ -1,6 +1,6 @@
-#REST Controllers, Part II
+# REST Controllers, Part II
 
-##Finishing `PostsController`
+## Finishing `PostsController`
 
 We should now complete our CRUD methods for the `PostsController`.
 
@@ -14,7 +14,7 @@ Consider this an extended exercise. You will be guided at times and left to work
 
 ### `@RequestBody`
 
-Remember: On `POST`, `PUT`, and `DELETE` requests, there exists a ***body*** property.
+Remember: on `POST` and `PUT`, there exists a ***body*** property (`DELETE` just uses a path variable).
 
 This request body will contain pertinent data for our controller method.
 
@@ -52,7 +52,7 @@ Now, we are free to use the newly acquired parameter same as any other method!
 #### 2. Annotate `createPost()` with `@PostMapping` to allow Spring to direct `POST` requests to this method.
 
 
-####3. Just before your incoming `Post` parameter add the annotation: `@RequestBody`.
+#### 3. Just before your incoming `Post` parameter add the annotation: `@RequestBody`.
  - This tells Spring to look at the requests body in order to find our incoming `Post`.
 
 
@@ -114,6 +114,8 @@ But be patient with yourself: ***it's been a while since we dove into JavaScript
 
 ---
 
+NOTE: Feature FEA-1-B probably already works as it was implemented in our starter project.
+
 ## FEA-1-B: Use Javascript/jQuery to allow a user to *view* posts in the `PostIndex.js` view.
 
 ## FEA-2-B: Use Javascript/jQuery to allow a user to *create* posts in the `PostIndex.js` view.
@@ -148,10 +150,12 @@ In the export default function PostIndex, use the current code to add new elemen
 
 ---
 #### 3. In the file `PostIndex.js`, add a new export function - `PostsEvent()`.
-   This function will call on 3 additional named functions which add click event listeners for when a user:
+   This function will call 3 additional named functions which add click event listeners for when a user:
    - submits a new post
    - edits an existing post
    - deletes an existing post
+
+NOTE: you do not need to create all of these functions now. Go ahead and create a function now for adding a click listener to your submit new post button. You will create the other two functions later in this lesson.
    
 ---
 #### 4. Allow the user to submit a new post
@@ -183,6 +187,8 @@ fetch("http://localhost:8080/api/posts", request)
             createView("/posts");
         });
 ```
+
+**IMPORTANT!** You will need to import the `createView` function into your `PostIndex.js` file.
 
 Notice we are not doing anything with the response aside from looking at the `status` property?
 
@@ -251,6 +257,6 @@ If you investigate the flow of our code, you will find that the `viewEvent` prop
 ---
 
 
-##Next Up: [The User](8-the-user.md)
+## Next Up: [The User](8-the-user.md)
 
 

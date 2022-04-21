@@ -1,10 +1,10 @@
 # Data Access in Spring
 
-### *Note: for the next few lessons, we will not run our application. This is to allow for a full set of instruction before seeing the end results.*
+### *Note: we will not run our application until then end of the next lesson. There is a bit of work for us to do before we can actually see results.*
 
 
 ---
-### This lesson will be a contiuation of: 
+### This lesson is a continuation of: 
 ## FEA-6: As a user, I can view, edit, and delete information about myself.
 
 ### And will introduce, as part of this lesson:
@@ -24,6 +24,8 @@ work with **JPA** entities in the Spring framework.
 ---
 
 ## Database Setup
+**NOTE:** You may skip this step if a Codeup instructor is hosting your database for you
+
 Before we can use the Spring framework's built-in data access abilities, we need
 a database user for our application. Configure a new data source in your project
 or login into your mysql server using the terminal client and run the following queries:
@@ -41,6 +43,8 @@ Why aren't we setting up a schema yet?
 
 ---
 ## Configuration
+
+**NOTE:** If a Codeup instructor is hosting your database for you, then configure `application.properties` with the database credentials that were given to you (url, username, and password)
 
 Now we need to configure our data source with Spring.
 
@@ -206,6 +210,8 @@ CREATE TABLE posts (
 );
 ```
 
+#### IMPORTANT: For now, use the `@Transient` annotation for your `Post` class fields `author` and `categories`. The `@Transient` annontation prevents the fields from mapping to database columns.
+
 ---
 ## Repositories
 
@@ -214,8 +220,7 @@ Similar to the DAOs we manually configured and coded, repositories are a tool fo
 In Spring, the Data Access Layer, has a predefined parent class (also called base class) called
 `JpaRepository`. 
 
-We will extend `JpaRepository` and define the type of objects it
-will be manipulating (`<Post, Long>`), as well as the data type of the entity's id (`Long`).
+In the `data` package, create an `Interface` called `PostsRepository`. Have the interface extend `JpaRepository` and define the type of objects it will be manipulating (`<Post, Long>`), as well as the data type of the entity's id (`Long`).
 
 ```java
 public interface PostsRepository extends JpaRepository<Post, Long> {
@@ -229,7 +234,7 @@ Thanks to extending `JpaRepository<T, ID>`, we have a set of predefined methods 
 
 To get an idea, check out methods defined in the documentation on the following inherited interfaces:
 
-- [PagingAndSortingRepository<T, ID](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/PagingAndSortingRepository.html)
+- [PagingAndSortingRepository<T, ID>](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/PagingAndSortingRepository.html)
 - [QueryByExampleExecutor<T>](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/query/QueryByExampleExecutor.html)
 - [CrudRespository<T, ID>](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html)
 
@@ -238,14 +243,14 @@ Just by defining an interface that extends `JpaRepository`, we can start using
 it in our other classes!
 
 By extending `JpaRepository`, we inherit the CRUD functionality that the Spring
-framework provides, including methods for retrieving an Iterable Interface[^1] with all the posts (`findAll`), a
-specific ad (`getOne`), inserting or updating an ad (`save`), and deleting an
-ad (`delete`).
+framework provides, including methods for retrieving an Iterable Interface (see Further Reading below) with all the posts (`findAll`), a
+single post (`getOne`), inserting or updating a post (`save`), and deleting a post (`delete`).
 
 ---
 ## FEA-6-F: Implement persistence for the `User`
 
 1. Convert the `User` object to an Entity.
+    - NOTE: use the annotation `@Transient` above `private Collection<Post> posts;`
 
 2. Inside the `data` package, create a `UserRepository` much like for `PostRepository`.
 
@@ -260,8 +265,7 @@ Why no `Category` repository? More to come!!
 - [Using the `@Query` Annotation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query)
 - [The Object Oriented Paradigm of Data Persistence](http://www.javaworld.com/article/2077817/java-se/understanding-jpa-part-1-the-object-oriented-paradigm-of-data-persistence.html)
 
-## Next Up: [Data Persistence, Pt II](13-data-persistence-ii.md)
-
+## Next Up: [Dependency Injection and Controller Integration](12b-di-integration.md)
 
 
 

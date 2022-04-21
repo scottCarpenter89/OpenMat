@@ -12,7 +12,7 @@ export default function Register(props) {
                     <title>Register</title>
                 </head>
                 <body>
-<!--                TODO: make pretty-->
+<!--TODO: make pretty-->
                     <h1>Register</h1>
     
                     <form id="register-form">

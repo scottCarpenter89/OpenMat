@@ -41,9 +41,11 @@ public class Post {
 
     @ManyToOne
     @JsonIgnoreProperties({"posts", "password"})
-    private User user;
+    private User author;
 }
 ```
+
+NOTE: For now, leave the `@Transient` annotation above `categories`
 
 This mapping is equivalent to the following MySQL table definition:
 
@@ -52,64 +54,43 @@ CREATE TABLE posts (
     id BIGINT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255),
-    user_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (authorid) REFERENCES users(id)
 );
 ```
 
 As you can see, Hibernate generates a column name based on the property name, in
 this case, **the property `user` generates a column `user_id`**.
 
+#### TEST!
+
+1. Manually modify the author_id fields of the records in your `posts` table. Use valid `id` values from your user records.
+
+2. Fetch your posts via Postman or Swagger
+
+
 ---
 ## `@OneToMany`
 
 A many-to-one association and a one-to-many association are the same association
-seen from the perspective of the owning and subordinate entities, respectively.
+seen from the perspective of the owning and subordinate entities, respectively. For example, Posts have a Many-to-One relationship with Users and conversely, Users have a One-to-Many relationship with Posts.
 
-Going back to our `Post` class, a post can have several images; we can map this as a
-bi-directional association as follows:
+Going to our `User` class, let's specify the converse relationship so that one user may be connected to many posts:
 
 ```java
 @Entity
-@Table(name="posts")
-public class Post {
+@Table(name="users")
+public class User {
     /* ... */
 
-   @OneToMany(mappedBy = "post")
-   @JsonIgnoreProperties("post")
-   private List<PostImage> images;
+    @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author")
+    private Collection<Post> posts;
 }
 ```
 
-```java
-@Entity
-@Table(name="post_images")
-public class PostImage {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(nullable = false)
-    private String path;
-
-    @ManyToOne
-    private Post post;
-}
-```
-
-The `post_images` definition would look like the following:
-
-```sql
-CREATE TABLE post_images (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    path VARCHAR(255) NOT NULL,
-    post_id BIGINT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (post_id) REFERENCES posts(id)
-);
-```
-
-In this case, Hibernate generated a `post_id` column from the `private Post post;` property in `PostImage`
+**IMPORTANT:** make sure that all involved primary AND foreign keys are the same MySQL data type, i.e., all of them are `int`s OR `bigint`s !
 
 ---
 ## @ManyToMany
@@ -228,7 +209,7 @@ CREATE TABLE post_category (
 
 
 
-###Of Note:
+### Of Note:
 
 Notice that we did not have to create a POJO for `PostCategory`, yet we have a generated SQL Table called `post_category`?
 
@@ -280,7 +261,7 @@ If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to
 - Create repositories for each object.
 
 
-- **TEST, TEST, TEST** (in Swagger and the UI)
+- **TEST, TEST, TEST** (in Swagger (or Postman) and the UI)
 
 ---
 ## Further Reading
@@ -290,4 +271,4 @@ If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to
 - [Creating A Database Seeder](/appendix/further-reading/spring/seeder)
 
 
-## Next Up: [Data Persistence, Pt III](14-data-persistence-iii.md)
+## Next Up: [Dependency Injection, Pt II](13b-di-integration-ii.md)

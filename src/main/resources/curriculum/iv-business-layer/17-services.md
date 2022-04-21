@@ -25,7 +25,7 @@ In order to use the default email implementation with Spring you will need to ad
 </dependency>
 ```
 
-Here is an example service class which could be used to notify the user when a new Post has been created:
+Here is an example service class which could be used to notify the user when a new Post has been created. Create a new package called `services` and put the `EmailService` class in that package.
 
 ```java
 @Service("mailService")
@@ -40,7 +40,7 @@ public class EmailService {
     public void prepareAndSend(Post post, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
-        msg.setTo(post.getUser().getEmail());
+        msg.setTo(post.getAuthor().getEmail());
         msg.setSubject(subject);
         msg.setText(body);
 
@@ -89,7 +89,7 @@ class PostsController {
 
 
 ---
-###Now, we have three distinct layers of our server-side application (aside from security):
+### Now, we have three distinct layers of our server-side application (aside from security):
 
 - Data Transfer Layer (Controllers)
   
@@ -99,7 +99,6 @@ class PostsController {
 
 - Data Access Layer (Repositories)
 
-### More than that, after you test this all, you have ANOTHER full stack application!
 
 ## Next Up: [Intro To Security](../v-security/18-intro-to-security.md)
 

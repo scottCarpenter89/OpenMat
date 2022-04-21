@@ -20,14 +20,14 @@ Let's think about the relationship between Users and Posts:
 We can implement this idea in our `Post` and `User` classes:
 
 ---
-###TODO - Use Models to Build Relationships
+### TODO - Use Models to Build Relationships
 Include the fields below in their respective classes and update their full constructor as well as add getter/setter methods:
 
 
 #### `Post`
 
 ```JAVA
-private User user;
+private User author;
 ```
 
 #### `User`
@@ -53,7 +53,7 @@ As with previous lessons, test these changes in **Swagger** and see if you can g
 ### FEA-7-B: Implement client-side
 
 ---
-## FEA-8: As a user, I can see my authored blog posts
+## FEA-8: As a user, I can see my authored blog posts (in the view in User.js)
 
 ### FEA-8-A: Implement server-side
 ### FEA-8-B: Implement client-side

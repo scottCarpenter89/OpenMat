@@ -20,7 +20,7 @@ Now, we need to fill out #2: **Who interacts with the application and what can t
 
 ## How to define the `User`
 
-We need to think about ***necessary*** information on the user of our the application.
+We need to think about ***necessary*** information for the user of our application.
 
 **Internally**:
 
@@ -59,7 +59,7 @@ For now, let's focus on the basics of our `User` by creating a model with a few 
 - String username
 - String email
 - String password
-- Date createdAt
+- LocalDate createdAt
 - Role role
 
 For our `Role`, we will create an `enum` inside the `User` class like so:
@@ -85,7 +85,7 @@ public class User {
 
 We can now set up a REST Controller for the purpose of running CRUD operations related to the `User`.
 
-***After completing each method, be sure to test in Swagger***
+***After completing each method, be sure to test in Swagger or Postman***
 
 #### 1. In the package `web`, create a class called `UsersController`.
 
@@ -98,12 +98,11 @@ We can now set up a REST Controller for the purpose of running CRUD operations r
 - **Make sure the class' `@RequestMapping` value is set to `/api/users`**
     
 
-- Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
-      with `User`
-      and waste your own time tracking down the issue.
+- ***WARNING, be very careful if you copypasta***. It will be EASY for you to forget to replace one of those `Post` references
+      with `User` and waste your own time tracking down the issue.
 
 
-#### 3. Did we mention you should test each method in Swagger as you are writing them?
+#### 3. Test test test
 
 ---
 

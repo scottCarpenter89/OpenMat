@@ -1,22 +1,18 @@
 package com.example.restblog.web;
 
-import com.example.restblog.data.Post;
 import com.example.restblog.data.User;
 import com.example.restblog.data.UsersRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.example.restblog.data.User.Role.USER;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/account", headers = "Accept=application/json")
+@RequestMapping(value = "/api/users", headers = "Accept=application/json")
 public class UsersController {
 
     // dependency for injection
@@ -38,10 +34,10 @@ public class UsersController {
     }
 
     @GetMapping("{id}")
-    public User getById(@PathVariable Long id) {
+    public Optional<User> getById(@PathVariable Long id) {
 //        User user = new User(id, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2));
         System.out.printf("Found the user id requested: %d", id);
-        return usersRepository.getById(id);
+        return usersRepository.findById(id);
     }
 
     @GetMapping("username")

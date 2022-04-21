@@ -10,12 +10,14 @@
 
 #### 2. `getByUsername()` listening on `/api/users/username`
     - returns a `User`
-    - takes in `@RequestParam String username` as parameter
+    - takes in `@RequestParam String userName` as parameter
+    - e.g., http://localhost:8080/api/users/username?userName=jimbo
 
 
 #### 3. `getByEmail()` listening on `/api/users/email`
     - returns a `User`
     - takes in `@RequestParam String email` as parameter
+    - e.g., http://localhost:8080/api/users/email?email=jimbo@aol.com
 
 ---
 ### FEA-6-C: Create client-side User view
@@ -39,7 +41,7 @@
 
 ### FEA-6-D: Make `updatePassword` in `UsersController`
 
-Create a `private` method `updatePassword()` listening on `{id}/updatePassword` which:
+Create a `private` PUT method `updatePassword()` listening on `/api/users/{id}/updatePassword` which:
 
 - returns `void`
 
@@ -48,11 +50,19 @@ Create a `private` method `updatePassword()` listening on `{id}/updatePassword` 
    ```JAVA
       @PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword
    ```
+Be sure to include the following dependency in your pom.xml:
+```
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>6.0.15.Final</version>
+</dependency>
+```
 
 - With the above parameters, we can:
     - obtain the `User` record
     - check the old password against the new
-    - ensure the new password meets our criteria.
+    - ensure the new password meets our criteria (??? what are our criteria ???)
 
 ---
 
