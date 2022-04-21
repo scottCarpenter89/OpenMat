@@ -1,19 +1,19 @@
 import createView from "../createView.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
-// <span style="float: right" id="author-${post.id}">Author: ${post.author.username}</span>
+//<span style="float: right" id="author-${post.id}">Author: ${post.posts.author}</span>
 export default function PostIndex(props) {
     // language=html;
     return `
-        <header>
+        <header class="container-fluid">
             <h1>Posts Page</h1>
         </header>
-            <main>
+            <main class="content-container container-fluid">
             <h3>Posts</h3>
                 <div id="posts-container">
                     ${props.posts.map(post => {
                         return `
-                            <div class="card">
+                            <div class="card mb-3">
                                 <h4 class="card-header">
                                     <span id="title-${post.id}">${post.title}</span>
                                     
@@ -23,8 +23,7 @@ export default function PostIndex(props) {
                                 </div>
                                 <div class="card-footer text muted">
 <!--                                TODO: need to do categories here-->
-
-
+                                
                                     <button type="button" class="btn edit-btn btn-primary mb-3" data-id="${post.id}">Edit</button>
                                     <button type="button" class="btn delete-btn btn-primary mb-3" data-id="${post.id}">Delete</button>
                                 </div>
