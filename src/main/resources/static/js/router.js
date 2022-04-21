@@ -6,10 +6,10 @@ import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
 import LoginEvent from "./auth.js";
 import Register from "./views/Register.js";
-import Account from "./views/Account.js";
 import {RegisterEvent} from "./views/Register.js";
-import {PostsEvent} from "./views/PostIndex.js";
-import {AccountEvent} from "./views/Account.js";
+import {PostEvent} from "./views/PostIndex.js";
+import UserIndex from "./views/User.js";
+import {UserEvents} from "./views/User.js";
 /**
  * Returns the route object for a specific route based on the given URI
  * @param URI
@@ -37,6 +37,15 @@ export default function router(URI) {
             title: 'Register',
             viewEvent: RegisterEvent
         },
+        '/users': {
+            returnView: UserIndex,
+            state: {
+                account: "/api/users"
+            },
+            uri: '/users',
+            title: 'Account Info',
+            viewEvent: UserEvents
+        },
         '/posts': {
             returnView: PostIndex,
             state: {
@@ -44,7 +53,7 @@ export default function router(URI) {
             },
             uri: '/posts',
             title: 'All Posts',
-            viewEvent: PostsEvent
+            viewEvent: PostEvent
         },
         '/about': {
             returnView: About,
@@ -56,22 +65,13 @@ export default function router(URI) {
             returnView: Error404,
             state: {},
             uri: location.pathname,
-            title: ' ERROR',
+            title: 'ERROR',
         },
         '/loading': {
             returnView: Loading,
             state: {},
             uri: location.pathname,
             title: 'Loading...',
-        },
-        '/account': {
-            returnView: Account,
-            state: {
-                account: "/api/account/email?email=carpenter.scott@rocketmail.com"
-            },
-            uri: '/account',
-            title: 'Account',
-            viewEvent: AccountEvent
         }
     };
 

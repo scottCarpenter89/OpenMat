@@ -83,11 +83,12 @@ public class UsersController {
     private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 8) @RequestParam String newPassword) {
 
         User updatePassword = usersRepository.getById(id);
-        // TODO: create a method that gets the old password and validates it that it matches what is in the database
         String oldPasswordValidator = updatePassword.getPassword();
-        // TODO: create a method that checks the user's input against parameters needed to create a strong password
-        updatePassword.setPassword(newPassword);
-        System.out.printf("The password for the user with the id, %d has been changed.", id);
+        if (oldPasswordValidator.equals(oldPassword)) {
+            // TODO: create a method that checks the user's input against parameters needed to create a strong password
+            updatePassword.setPassword(newPassword);
+            System.out.printf("The password for the user with the id, %d has been changed.", id);
+        }
     }
 
     @DeleteMapping("{id}")

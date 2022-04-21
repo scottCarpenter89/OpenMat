@@ -20,7 +20,7 @@
 ---
 ### FEA-6-C: Create client-side User view
 
-#### 1. Inside `views`, create a new `Account.js` file. Use this file to create a view for allowing the `User` to see/edit information about themselves.
+#### 1. Inside `views`, create a new `User.js` file. Use this file to create a view for allowing the `User` to see/edit information about themselves.
 - In your capstone project, this will be essential! So it's highly advisable that you attempt this view!
 
 

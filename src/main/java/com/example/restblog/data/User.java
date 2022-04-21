@@ -28,6 +28,7 @@ public class User {
     private LocalDate createdAt;
     @Column
     private Role role;
+//    @Column
 //    private Collection<Post> posts;
 
 
