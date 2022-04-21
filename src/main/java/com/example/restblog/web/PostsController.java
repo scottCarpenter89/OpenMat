@@ -62,4 +62,9 @@ public class PostsController {
         System.out.printf("The post with the id %d was deleted.", id);
         System.out.println();
     }
+
+    @GetMapping("searchByCategory")
+    private List<Post> searchPostsByCategory(@RequestParam String category) {
+        return postsRepository.findAllByCategories(categoriesRepository.findCategoriesByName(category));
+    }
 }

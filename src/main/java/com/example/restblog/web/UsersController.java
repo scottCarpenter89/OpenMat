@@ -42,12 +42,9 @@ public class UsersController {
         return usersRepository.save(foundUser);
     }
 
-    @GetMapping("email")
-    public User getByEmail(@RequestParam String email) {
-        User foundUser = new User();
-        foundUser.setEmail(email);
-        System.out.printf("Found the email requested: %s", email);
-        return foundUser;
+    @GetMapping("searchByEmail")
+    public User getByEmail(@RequestParam String userEmail) {
+        return usersRepository.findByEmail(userEmail);
     }
 
     @PostMapping
