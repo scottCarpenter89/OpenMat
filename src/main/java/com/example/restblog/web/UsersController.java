@@ -43,10 +43,9 @@ public class UsersController {
     }
 
     @PostMapping
-    private void createUser(@RequestBody User user) {
-        User newUser = user;
-        user.setCreatedAt(LocalDate.now());
-        user.getRole();
+    private void createUser(@RequestBody User newUser) {
+        newUser.setRole(User.Role.USER);
+        newUser.setCreatedAt(LocalDate.now());
         usersRepository.save(newUser);
         System.out.printf("A new user was created with the id of: %d", newUser.getId());
     }
