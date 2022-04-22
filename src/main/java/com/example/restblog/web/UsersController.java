@@ -29,17 +29,11 @@ public class UsersController {
 
     @GetMapping("{id}")
     public Optional<User> getById(@PathVariable Long id) {
-//        User user = new User(id, "scottieDon't", "carpenter.scott@rocketmail.com", "butterSc0Tch", LocalDate.now(), USER, Arrays.asList(post1, post2));
-        System.out.printf("Found the user id requested: %d", id);
         return usersRepository.findById(id);
     }
 
     @GetMapping("searchByUsername")
     public User getByUsername(@RequestParam String username) {
-//        User foundUser = new User();
-//        foundUser.setUsername(username);
-//        System.out.printf("Found the username requested: %s", username);
-//        return usersRepository.save(foundUser);
         return usersRepository.findByUsername(username);
     }
 
