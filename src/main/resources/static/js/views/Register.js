@@ -38,7 +38,6 @@ export function RegisterEvent() {
             password: $("#password").val()
         }
 
-        console.log(newUser);
 
         let request = {
             method: "POST",

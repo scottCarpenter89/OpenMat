@@ -8,5 +8,5 @@ import java.beans.ExceptionListener;
 public interface UsersRepository extends JpaRepository<User, Long> {
 User findByEmail(String email);
 User findByUsername(String username);
-User loadUserByUsername(String username);
+//User loadUserByUsername(String username);
 }

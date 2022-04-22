@@ -2,6 +2,7 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.User;
 import com.example.restblog.data.UsersRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,9 +18,11 @@ public class UsersController {
 
     // dependency for injection
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsersController(UsersRepository usersRepository) {
+    public UsersController(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -46,6 +49,9 @@ public class UsersController {
     private void createUser(@RequestBody User newUser) {
         newUser.setRole(User.Role.USER);
         newUser.setCreatedAt(LocalDate.now());
+        String encryptedPassword = newUser.getPassword();
+        encryptedPassword = passwordEncoder.encode(encryptedPassword);
+        newUser.setPassword(encryptedPassword);
         usersRepository.save(newUser);
         System.out.printf("A new user was created with the id of: %d", newUser.getId());
     }
