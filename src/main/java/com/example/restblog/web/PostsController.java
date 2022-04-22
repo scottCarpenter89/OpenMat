@@ -1,6 +1,7 @@
 package com.example.restblog.web;
 
 import com.example.restblog.data.*;
+import com.example.restblog.services.EmailService;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,13 @@ public class PostsController {
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
     private final CategoriesRepository categoriesRepository;
+    private final EmailService emailService;
 
-    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository, CategoriesRepository categoriesRepository) {
+    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository, CategoriesRepository categoriesRepository, EmailService emailService) {
         this.postsRepository = postsRepository;
         this.usersRepository = usersRepository;
         this.categoriesRepository = categoriesRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -43,6 +46,9 @@ public class PostsController {
         postsRepository.save(newPost);
         System.out.printf("A post with the id %d was created.", newPost.getId());
         System.out.println();
+
+        emailService.prepareAndSend(newPost, "A new Post has been submitted", "See subject");
+
     }
 
     @PutMapping("{id}")
