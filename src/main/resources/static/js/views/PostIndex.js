@@ -2,7 +2,7 @@ import createView from "../createView.js";
 import {getHeaders} from "../auth.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
-//<span style="float: right" id="author-${post.id}">Author: ${post.posts.author}</span>
+
 export default function PostIndex(props) {
     // language=html;
     return `
@@ -17,7 +17,7 @@ export default function PostIndex(props) {
                             <div class="card mb-3">
                                 <h4 class="card-header">
                                     <span id="title-${post.id}">${post.title}</span>
-                                    
+                                    <span style="float: right" id="author-${post.id}">Author: ${post.author.username}</span>
                                 </h4>
                                 <div class="card-body">
                                     <p id="content-${post.id}" class="card-text">${post.content}</p>
@@ -80,7 +80,7 @@ function postEventListener() {
         }
         request.headers = getHeaders();
         request.body = JSON.stringify(newPost);
-
+        console.log(request);
         fetch(`${POST_URI}${uriExtra}`, request)
             .then(res => {
                 console.log(res.status);

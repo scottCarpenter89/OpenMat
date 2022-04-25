@@ -2,6 +2,7 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.*;
 import com.example.restblog.services.EmailService;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +38,18 @@ public class PostsController {
     }
 
     @PostMapping
-    private void createPost(@RequestBody Post newPost) {
-        newPost.setAuthor(usersRepository.getById(1L));
-        List<Category> categories = new ArrayList<>();
-        categories.add(categoriesRepository.findCategoriesByName("bjj"));
-        categories.add(categoriesRepository.findCategoriesByName("golf"));
-        newPost.setCategories(categories);
+    private void createPost(@RequestBody Post newPost, OAuth2Authentication auth) {
+        String email = auth.getName();
+        User author = usersRepository.findByEmail(email);
+        newPost.setAuthor(author);
+//        newPost.setAuthor(usersRepository.getById(1L));
+//        List<Category> categories = new ArrayList<>();
+//        categories.add(categoriesRepository.findCategoriesByName("bjj"));
+//        categories.add(categoriesRepository.findCategoriesByName("golf"));
+//        newPost.setCategories(categories);
         postsRepository.save(newPost);
-        System.out.printf("A post with the id %d was created.", newPost.getId());
-        System.out.println();
+//        System.out.printf("A post with the id %d was created.", newPost.getId());
+//        System.out.println();
 
         emailService.prepareAndSend(newPost, "A new Post has been submitted", "See subject");
 

@@ -32,7 +32,6 @@ public class User {
     @NotEmpty
     private String email;
 
-
     @ToString.Exclude
     private String password;
 
@@ -46,7 +45,8 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("author")
 
-    @ToString.Exclude
+//    @ToString.Exclude
+    @Transient
     private Collection<Post> posts;
 
 }
