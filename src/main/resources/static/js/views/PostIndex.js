@@ -1,4 +1,5 @@
 import createView from "../createView.js";
+import {getHeaders} from "../auth.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
 //<span style="float: right" id="author-${post.id}">Author: ${post.posts.author}</span>
@@ -77,9 +78,7 @@ function postEventListener() {
             request.method = "POST";
             console.log("Ready to add this post:");
         }
-        request.headers = {
-            'Content-Type': 'application/json'
-        };
+        request.headers = getHeaders();
         request.body = JSON.stringify(newPost);
 
         fetch(`${POST_URI}${uriExtra}`, request)
@@ -114,9 +113,7 @@ function deleteEventLister() {
 
         const request = {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: getHeaders()
         };
 
         fetch(`${POST_URI}/${id}`, request)
