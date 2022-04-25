@@ -1,4 +1,5 @@
 import CreateView from "../createView.js"
+import {getHeaders} from "../auth.js";
 
 const USER_URI = "http://localhost:8080/api/users";
 
@@ -41,7 +42,7 @@ export function RegisterEvent() {
         console.log(newUser);
         let request = {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: getHeaders(),
             body: JSON.stringify(newUser)
         }
 

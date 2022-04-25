@@ -45,8 +45,7 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnoreProperties("author")
 
-//    @ToString.Exclude
-    @Transient
+    @ToString.Exclude
     private Collection<Post> posts;
 
 }

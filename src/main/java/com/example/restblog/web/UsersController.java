@@ -1,5 +1,6 @@
 package com.example.restblog.web;
 
+import com.example.restblog.data.PostsRepository;
 import com.example.restblog.data.User;
 import com.example.restblog.data.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +22,12 @@ public class UsersController {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UsersController(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+
+
+    public UsersController(UsersRepository usersRepository, PasswordEncoder passwordEncoder, PostsRepository postsRepository) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @GetMapping
@@ -38,7 +42,7 @@ public class UsersController {
 
     //TODO: test to see if working
     @GetMapping("me")
-    public User getMyInfo(@RequestParam OAuth2Authentication auth) {
+    public User getMyInfo(OAuth2Authentication auth) {
         String email = auth.getName();
         return usersRepository.findByEmail(email);
     }
