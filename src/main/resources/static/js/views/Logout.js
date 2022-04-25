@@ -10,10 +10,15 @@ export default function Logout(props) {
 
 export function LogoutEvent() {
     console.log("Calling Logout Events");
-    if (getAccessToken && getRefreshToken) {
+    if (isLoggedIn()) {
         window.localStorage.removeItem('access_token');
         window.localStorage.removeItem('refresh_token');
     }
     return createView("/");
 }
 
+function isLoggedIn() {
+    if (getAccessToken && getRefreshToken) {
+        return true;
+    }
+}
