@@ -17,7 +17,7 @@ export function LogoutEvent() {
     return createView("/");
 }
 
-function isLoggedIn() {
+export function isLoggedIn() {
     if (getAccessToken && getRefreshToken) {
         return true;
     }

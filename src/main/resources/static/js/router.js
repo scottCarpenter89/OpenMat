@@ -12,6 +12,7 @@ import UserIndex from "./views/User.js";
 import {UserEvents} from "./views/User.js";
 import Logout from "./views/Logout.js";
 import {LogoutEvent} from "./views/Logout.js";
+
 /**
  * Returns the route object for a specific route based on the given URI
  * @param URI
@@ -23,7 +24,7 @@ export default function router(URI) {
             returnView: Home,
             state: {},
             uri: '/',
-            title: 'Home',
+            title: 'Home'
         },
         '/login': {
             returnView: Login,
