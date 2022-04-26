@@ -5,7 +5,7 @@ const getRefreshToken = window.localStorage.getItem('refresh_token');
 
 export default function Logout(props) {
     console.log("Logging out...");
-
+    return ``;
 }
 
 export function LogoutEvent() {
