@@ -39,7 +39,7 @@ export default function Register(props) {
                     </form>
                 </div>
                 <div class="card-footer w-100" id="register-footer">
-                    <input class="btn btn-primary" id="register-btn" type="submit" value="LOG IN"/>
+                    <input class="btn btn-primary" id="register-btn" type="submit" value="Register"/>
                 </div>
             </div>
         </div>

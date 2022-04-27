@@ -4,7 +4,7 @@ export default function Navbar(props) {
     let html = `
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Open-Mat</a>
+                <img class="navbar-brand" src="../../../img/logo1.png">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">

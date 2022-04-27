@@ -1,0 +1,21 @@
+
+#register-card {
+    width: 50%;
+    margin: auto;
+}
+
+#register-container {
+    height: 100%;
+    padding-top: 8rem;
+}
+
+#register-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#register-content-container {
+    height: 100%;
+    display: flex;
+}
