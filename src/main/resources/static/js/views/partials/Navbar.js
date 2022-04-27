@@ -2,7 +2,7 @@ import {isLoggedIn} from "../Logout.js";
 
 export default function Navbar(props) {
     let html = `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">Open-Mat</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

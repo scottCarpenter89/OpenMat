@@ -5,6 +5,7 @@ const POST_URI = "http://localhost:8080/api/posts";
 
 export default function PostIndex(props) {
     // language=html;
+    console.log(props);
     return `
         <header class="container-fluid">
             <h1>Posts Page</h1>
