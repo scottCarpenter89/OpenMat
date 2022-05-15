@@ -47,7 +47,6 @@ export default function PostIndex(props) {
     `;
 }
 
-
 export function PostEvent() {
     postEventListener();
     editEventListener();
