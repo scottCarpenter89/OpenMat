@@ -6,7 +6,7 @@ export default function Home(props) {
         <main>
             <div>
                 <p>
-                    This is the home page text.
+                    OpenMat Home Page
                 </p>    
             </div>
         </main>
